@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  deepagents:
+    build: .
+    ports:
+      - "2024:2024"
+    environment:
+      # LangChain/LangSmith configuration
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGSMITH_API_KEY=${LANGSMITH_API_KEY}
+      - LANGCHAIN_PROJECT=deep-research-agent
+      - LANGSMITH_ENDPOINT=https://api.smith.langchain.com
+      
+      # Anthropic Claude API Key (Required - this is the default model)
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      
+      # Tavily configuration (for web search)
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      
+      # Other potential API keys
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    volumes:
+      # Mount local .env file if it exists
+      - ./.env:/app/examples/research/.env:ro
+      # Mount research data directory for persistence
+      - ./data:/app/examples/research/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2024/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

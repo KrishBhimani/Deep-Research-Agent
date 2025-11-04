@@ -23,7 +23,7 @@ def internet_search(
         include_raw_content=include_raw_content,
         topic=topic,
     )
-    retun search_docs
+    return search_docs
 
 
 sub_research_prompt = """You are a dedicated researcher. Your job is to conduct research based on the users questions.

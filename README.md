@@ -38,20 +38,20 @@ Deep-Research-Agent/
 
 ### Backend Setup
 
-1. **Navigate to the research example directory:**
+1. **Navigate to the examples/research directory:**
    ```bash
    cd Deep-Research-Agent/deepagents/examples/research
    ```
 
 2. **Install dependencies:**
    ```bash
-   # Execute this command in the research example directory
+   # Execute this command in the same examples/research directory
    pip install -r requirements.txt
    ```
 
 3. **Set environment variables:**
    ```bash
-   # Execute this command in the research example directory
+   # Execute this command in the same examples/research directory
    cp .env.example .env
    ```
    Then edit the `.env` file with your actual API keys:
@@ -66,7 +66,7 @@ Deep-Research-Agent/
 
 4. **Start the LangGraph development server:**
    ```bash
-   # Execute this command in the research example directory
+   # Execute this command in same examples/research directory
    langgraph dev
    ```
 

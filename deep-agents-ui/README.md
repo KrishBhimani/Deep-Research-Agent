@@ -2,11 +2,6 @@
 
 Deep Agents are generic AI agents that are capable of handling tasks of varying complexity. This is a UI intended to be used alongside the [`deep-agents`](https://github.com/hwchase17/deepagents?ref=blog.langchain.com) package from LangChain.
 
-If the term "Deep Agents" is new to you, check out these videos!
-- [What are Deep Agents?](https://www.youtube.com/watch?v=433SmtTc0TA)
-- [Implementing Deep Agents](https://www.youtube.com/watch?v=TTMYJAw5tiA&t=701s)
-- [UI Walkthrough](https://youtu.be/0CE_BhdnZZI) for a demonstration of this interface
-
 ## Setup Instructions
 
 ### Prerequisites

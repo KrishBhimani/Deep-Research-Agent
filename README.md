@@ -45,24 +45,35 @@ Deep-Research-Agent/
 
 2. **Install dependencies:**
    ```bash
+   # Execute this command in the research example directory
    pip install -r requirements.txt
    ```
 
 3. **Set environment variables:**
-   Copy the example environment file and update with your API keys:
    ```bash
+   # Execute this command in the research example directory
    cp .env.example .env
    ```
-   Then edit `.env` with your actual API keys:
+   Then edit the `.env` file with your actual API keys:
    ```env
+   # Your Anthropic API key can be obtained from https://console.anthropic.com/
    ANTHROPIC_API_KEY=your-anthropic-api-key
-   TAVILY_API_KEY=your-tavily-api-key  # Optional for web search
+   
+   # Optional: Tavily API key for web search functionality
+   # Can be obtained from https://tavily.com/
+   TAVILY_API_KEY=your-tavily-api-key
    ```
 
 4. **Start the LangGraph development server:**
    ```bash
+   # Execute this command in the research example directory
    langgraph dev
    ```
+
+   If you encounter issues starting the server:
+   - Ensure you have LangGraph installed (`pip install langgraph`)
+   - Check that your API keys are correctly formatted in the .env file
+   - Verify you're in the correct directory (Deep-Research-Agent/deepagents/examples/research)
 
 ### Frontend Setup
 
@@ -73,27 +84,38 @@ Deep-Research-Agent/
 
 2. **Install dependencies:**
    ```bash
+   # Execute this command in the deep-agents-ui directory
    npm install
    ```
 
 3. **Set environment variables:**
-   Copy the example environment file and update with your configuration:
    ```bash
+   # Execute this command in the deep-agents-ui directory
    cp .env.example .env.local
    ```
    Then edit `.env.local` with your actual configuration:
    ```env
-   NEXT_PUBLIC_DEPLOYMENT_URL=http://127.0.0.1:2024  # or your server url
-   NEXT_PUBLIC_AGENT_ID=<your agent ID from langgraph.json>
+   # URL of your LangGraph server - use this value for local development
+   NEXT_PUBLIC_DEPLOYMENT_URL=http://127.0.0.1:2024
+   
+   # Your agent ID is the key under "graphs" in the langgraph.json file
+   # In the default setup, this is "research"
+   NEXT_PUBLIC_AGENT_ID=research
    ```
 
 4. **Start the development server:**
    ```bash
+   # Execute this command in the deep-agents-ui directory
    npm run dev
    ```
 
 5. **Open your browser:**
    Navigate to `http://localhost:3000`
+   
+   If you encounter issues:
+   - Ensure the backend server is running
+   - Verify your NEXT_PUBLIC_AGENT_ID is correct
+   - Check that the NEXT_PUBLIC_DEPLOYMENT_URL matches your backend server address
 
 ## 🛠️ Technology Stack
 
@@ -199,59 +221,6 @@ NEXT_PUBLIC_AUTH_ENABLED=false
 **Deployment Configuration:**
 Edit `src/lib/environment/deployments.ts` for custom deployment settings.
 
-## 📚 API Reference
-
-### Backend API
-
-**Creating a Deep Agent:**
-```python
-from deepagents import create_deep_agent
-
-agent = create_deep_agent(
-    tools=[list_of_tools],           # Required: Tools for the agent
-    instructions="System prompt",    # Required: Agent instructions
-    model=custom_model,             # Optional: Custom LLM model
-    subagents=[custom_subagents],   # Optional: Specialized sub-agents
-    state_schema=CustomState        # Optional: Custom state schema
-)
-```
-
-**Built-in Tools:**
-- `write_todos`: Task planning and management
-- `write_file`: Create files in virtual filesystem
-- `read_file`: Read files with line numbers and pagination
-- `edit_file`: Edit files with string replacement
-- `ls`: List files in virtual filesystem
-- `task`: Delegate to sub-agents
-
-### Frontend API
-
-**Chat Hook:**
-```typescript
-const { messages, isLoading, sendMessage, stopStream } = useChat(
-  threadId,
-  setThreadId,
-  onTodosUpdate,
-  onFilesUpdate
-);
-```
-
-**Type Definitions:**
-```typescript
-interface ToolCall {
-  id: string;
-  name: string;
-  args: any;
-  result?: string;
-  status: "pending" | "completed" | "error";
-}
-
-interface TodoItem {
-  id: string;
-  content: string;
-  status: "pending" | "in_progress" | "completed";
-}
-```
 
 ## 🔄 Development Workflow
 
@@ -259,33 +228,12 @@ interface TodoItem {
 1. **Create Custom Tools**: Implement functions with proper type hints
 2. **Define Sub-Agents**: Create specialized agents for specific tasks
 3. **Test Locally**: Use the research example as a starting point
-4. **Deploy**: Use LangGraph Cloud or custom deployment
 
 ### Frontend Development
 1. **Component Development**: Create React components in `src/app/components/`
 2. **Styling**: Use SCSS modules + Tailwind CSS
 3. **State Management**: Leverage LangGraph SDK hooks
 4. **Testing**: Test with local backend instance
-
-## 🚀 Deployment
-
-### Backend Deployment
-```bash
-# Using LangGraph Cloud
-langgraph deploy --config langgraph.json
-
-# Or custom deployment
-python -m uvicorn your_app:app --host 0.0.0.0 --port 2024
-```
-
-### Frontend Deployment
-```bash
-# Build for production
-npm run build
-
-# Deploy to Vercel, Netlify, or custom hosting
-npm run start
-```
 
 ## 🤝 Contributing
 
